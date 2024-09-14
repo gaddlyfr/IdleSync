@@ -28,7 +28,6 @@ def add_apps():
     try:
         choiceFolder = input("Folder > ") 
         if int(choiceFolder) in choice:
-            print(paths_folder[int(choiceFolder)], os.listdir(paths_folder[int(choiceFolder)]))
             subfolders = [i for i in os.listdir(paths_folder[int(choiceFolder)])]
             while True:
                 for i in range(len(subfolders)):
@@ -45,8 +44,4 @@ def add_apps():
         print(NameError)
 
     
-add_to_path_folder("c:\\")
-add_to_path_folder("d:\\")
-add_to_path_folder("e:\\")
-add_apps()
-print(apps_folder)
+
