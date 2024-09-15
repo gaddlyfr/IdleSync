@@ -1,9 +1,10 @@
-import os
-import json
+import os, json
+from datetime import datetime, timedelta
 
 paths_folder = []
 apps_folder = {}
 
+path_to_sync = []
 
 
 def add_to_path_folder():
@@ -135,7 +136,28 @@ def read_file():
         os.system("cls")
         print("Error with loading data from file")
 
+def get_a_time():
+    for i in apps_folder:
+        for j in apps_folder[i]:
+            # construct path
+            if "/" in i:
+                path = f"{i}{j}"
+                data = os.path.getmtime(path)
+            else:
+                path = f"{i}/{j}"
+                data = os.path.getmtime(path)
+
+            data = datetime.fromtimestamp(data)
+            time = datetime.now()
+
+            if (time - data) >= timedelta(days=1):
+                path_to_sync.append(path)
+    print(path_to_sync)
+            
+
+
 read_file()
+get_a_time()
 while True:
     try:
         prompt = input("> ").casefold().split()
@@ -148,7 +170,6 @@ while True:
         elif prompt[0] == "cls" or prompt[0] == "clear": os.system('cls')
         else:
             print("Unknown Command")
-
         save_to_file()
     except:
         error()
